@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+ <html lang="en">
+
+ <head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+     <meta charset="UTF-8" />
+
+     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+     <meta name="description" content="blog" />
+     <meta name="keywords" content="10,blog " />
+
+     <title>BixTraders </title>
+
+     <link rel="stylesheet" href="../../fonts.googleapis.com/css2_1271972d.css" />
+     <link rel="stylesheet" href="../../fonts.googleapis.com/css2_6fa2d7dc.css" />
+
+     <link rel="shortcut icon" type="image/png" href="asset/images/icon/icon.png" />
+
+     <link rel="stylesheet" href="asset/frontend/light/css/lib/bootstrap.min.css" />
+     <link rel="stylesheet" href="asset/frontend/light/css/all.min.css" />
+     <link rel="stylesheet" href="asset/frontend/light/css/line-awesome.min.css" />
+     <link rel="stylesheet" href="asset/frontend/light/css/lib/slick.css" />
+     <link rel="stylesheet" href="asset/frontend/light/css/lib/odometer.css" />
+
+             <link rel="stylesheet" href="asset/frontend/light/css/izitoast.min.css" />
+    
+     <link href="asset/frontend/light/css/main.css" rel="stylesheet" />
+
+    
+     <style>
+        :root {
+            --h-font: 'Montserrat', sans-serif;
+            --p-font: 'Poppins','sans-serif';
+        }
+    </style>
+
+    
+    
+
+ </head>
+
+ <body>
+
+
+             <div class="preloader-holder">
+             <div class="preloader">
+                 <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+             </div>
+         </div>
+    
+
+             <script async="" src="../../www.googletagmanager.com/gtag/js_91fd800.js"></script>
+         <script>
+            'use strict'
+            window.dataLayer = window.dataLayer || [];
+
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag("js", new Date());
+            gtag("config", "hjkhjk");
+        </script>
+    
+             <div class="cookies-card style-full js-cookie-consent cookie-consent">
+     <div class="container">
+         <div class="cookies-card-inner bg--default radius--10px">
+             <div class="d-flex flex-wrap align-items-center">
+                 <div class="cookies-card__icon mb-4">
+                     <i class="fas fa-cookie-bite text-dark"></i>
+                 </div>
+                 <p class="cookies-card__content cookie-consent__message text-white mb-4">By clicking “accept all _______”, you agree stack exchange ___ store cookies on your ______ and disclose information in __________ with our cookie policy. </p>
+                 <div class="cookies-card__btn">
+                     <a href="javascript:void(0)" class="cookies-btn js-cookie-consent-agree cookie-consent__agree">Accept </a>
+                     <a href="javascript:void(0)" class="cookies-btn decline-cookie__consent">Decline </a>
+                 </div>
+             </div>
+         </div>
+     </div>
+ </div>
+
+
+
+     <script>
+
+        'use strict'
+
+        window.laravelCookieConsent = (function () {
+
+            const COOKIE_VALUE = 1;
+            const COOKIE_DOMAIN = 'BixTraders.com';
+
+            function consentWithCookies() {
+                setCookie('laravel_cookie_consent', COOKIE_VALUE, 7300);
+                hideCookieDialog();
+            }
+
+            function cookieExists(name) {
+                return (document.cookie.split('; ').indexOf(name + '=' + COOKIE_VALUE) !== -1);
+            }
+
+            function hideCookieDialog() {
+                const dialogs = document.getElementsByClassName('js-cookie-consent');
+
+                for (let i = 0; i < dialogs.length; ++i) {
+                    dialogs[i].style.display = 'none';
+                }
+            }
+
+            function setCookie(name, value, expirationInDays) {
+                const date = new Date();
+                date.setTime(date.getTime() + (expirationInDays * 24 * 60 * 60 * 1000));
+                document.cookie = name + '=' + value
+                    + ';expires=' + date.toUTCString()
+                    + ';domain=' + COOKIE_DOMAIN
+                    + ';path=/'
+                    + ';samesite=lax';
+            }
+
+            if (cookieExists('laravel_cookie_consent')) {
+                hideCookieDialog();
+            }
+
+            const buttons = document.getElementsByClassName('js-cookie-consent-agree');
+
+            for (let i = 0; i < buttons.length; ++i) {
+                buttons[i].addEventListener('click', consentWithCookies);
+            }
+
+            return {
+                consentWithCookies: consentWithCookies,
+                hideCookieDialog: hideCookieDialog
+            };
+        })();
+    </script>
+
+    
+     <div class="body-content-area">
+        
+         <header class="sp_header">
+     <div class="sp_header_info_bar">
+         <div class="container">
+             <div class="row align-items-center">
+                 <div class="col-lg-10 header-top-left">
+                     <div class="tradingview-widget-container">
+                         <div class="tradingview-widget-container__widget"></div>
+                         <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/markets/" rel="noopener" target="_blank"><span class="blue-text">Markets today </span></a> by TradingView </div>
+                         <script type="text/javascript" src="../../s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async="">
+                            {
+                                "symbols": [{
+                                        "proName": "FOREXCOM:SPXUSD",
+                                        "title": "S&P 500"
+                                    },
+                                    {
+                                        "proName": "FOREXCOM:NSXUSD",
+                                        "title": "US 100"
+                                    },
+                                    {
+                                        "proName": "FX_IDC:EURUSD",
+                                        "title": "EUR/USD"
+                                    },
+                                    {
+                                        "proName": "BITSTAMP:BTCUSD",
+                                        "title": "Bitcoin"
+                                    },
+                                    {
+                                        "proName": "BITSTAMP:ETHUSD",
+                                        "title": "Ethereum"
+                                    }
+                                ],
+                                "showSymbolLogo": true,
+                                "colorTheme": "dark",
+                                "isTransparent": true,
+                                "displayMode": "adaptive",
+                                "locale": "en"
+                            }
+                        </script>
+                     </div>
+                     <!-- TradingView Widget END -->
+                 </div>
+
+                 <div class="col-lg-2 header-top-right">
+                     <div class="d-flex justify-content-end">
+                         <select class="custom-select-form selectric ms-3 rounded changeLang nav-link scrollto" aria-label="Default select example">
+                                                             <option value="sp" />
+                                    Spanish
+                                 
+                                                             <option value="en" selected="" />
+                                    English
+                                 
+                                                     </select>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </div><!-- header-top end -->
+
+     <div class="sp_header_main">
+         <div class="container">
+             <nav class="navbar navbar-expand-xl p-0 align-items-center">
+                 <a class="site-logo site-title" href="index.html">
+                     <img src="asset/frontend/light/images/logo/logo light.png" alt="logo" />
+                 </a>
+                 <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                     <span class="menu-toggle"></span>
+                 </button>
+                 <div class="collapse navbar-collapse mt-lg-0 mt-3" id="mainNavbar">
+                     <ul class="nav navbar-nav sp_site_menu ms-auto">
+                         <li class='nav-item'>
+         <a class='nav-link' href='index.html'>Home </a>
+     </li>
+                 <li class='nav-item'>
+                                 <a class='nav-link' href='about.html'>About </a>
+                             </li>
+                
+                 <li class='nav-item'>
+                                 <a class='nav-link' href='packages.html'>Packages </a>
+                             </li>
+                
+                 <li class='nav-item'>
+                                 <a class='nav-link' href='contact.html'>Contact </a>
+                             </li>
+                  <li class='nav-item dropdown'>
+                         <a class='nav-link dropdown-toggle' href='#' id='navbarDropdown' role='button' data-bs-toggle='dropdown' aria-expanded='false'>
+                            Pages
+                         </a>
+                         <ul class='dropdown-menu' aria-labelledby='navbarDropdown'>
+                             <li><a class='dropdown-item' href='blog.html'>Blog </a></li>
+                         </ul>
+                 </li>                     </ul>
+
+                     <select class="custom-select-form  rounded changeLang nav-link mb-3 d-xl-none">
+                                                     <option value="sp" />
+                                Spanish
+                             
+                                                     <option value="en" selected="" />
+                                English
+                             
+                                             </select>
+
+                     <div class="navbar-action">
+                                                     <a href="login.html" class="me-3 text-p">Sign in </a>
+                             <a href="register.html" class="btn sp_theme_btn btn-sm">Sign up  <i class="las la-long-arrow-alt-right ms-2"></i></a>
+                        
+                     </div>
+                 </div>
+             </nav>
+         </div>
+     </div><!-- header-bottom end -->
+ </header>
+ <!-- header-section end  -->
+
+                     <section class="sp_page_banner">
+     <div class="container">
+         <div class="row justify-content-center">
+             <div class="col-lg-6 text-center">
+                 <h2 class="title text-white">Blog </h2>
+                 <ul class="sp_page_breadcrumb justify-content-center mt-2">
+                     <li><a href="index.html">Home </a></li>
+                     <li>Blog </li>
+                 </ul>
+             </div>
+         </div>
+     </div>
+ </section>
+        
+                                 <section class="blog-section sp_pt_120 sp_pb_120 sp_separator_bg">
+     <div class="container">
+         <div class="row justify-content-center">
+             <div class="col-lg-7 text-center">
+                 <div class="sp_theme_top  wow fadeInUp" data-wow-duration="0.3s" data-wow-delay="0.3s">
+                     <div class="sp_theme_top_caption"><i class="fas fa-bolt"></i>
+                        ____ post
+                     </div>
+                     <h2 class="sp_theme_top_title">
+                        ___ Latest  <span>News </span>                     </h2>
+                 </div>
+             </div>
+         </div>
+
+        
+         <div class="row gy-4 justify-content-center">
+                             <div class="col-lg-4 col-md-6">
+                     <div class="sp_blog_item">
+                         <div class="sp_blog_thumb">
+                             <img src="asset/frontend/light/images/blog/64ae8ae0746d41689160416.jpg" alt="blog thumb" />
+                         </div>
+                         <div class="sp_blog_content">
+                             <ul class="sp_blog_meta mb-2">
+                                 <li><i class="far fa-user-circle"></i> By admin </li>
+                                 <li><i class="far fa-clock"></i> 12 07, 2023 </li>
+                             </ul>
+                             <h4 class="sp_blog_title"><a href="blog/255/temporibus-dignissimos-aperiam-accusamus-dolore.html">Temporibus, dignissimos aperiam accusamus ______ </a>
+                             </h4>
+                             <a href="blog/255/temporibus-dignissimos-aperiam-accusamus-dolore.html" class="sp_blog_btn">
+                                 <span>Read more </span>
+                                 <i class="las la-arrow-right"></i>
+                             </a>
+                         </div>
+                     </div>
+                 </div>
+                             <div class="col-lg-4 col-md-6">
+                     <div class="sp_blog_item">
+                         <div class="sp_blog_thumb">
+                             <img src="asset/frontend/light/images/blog/64ae8b0a98bda1689160458.jpg" alt="blog thumb" />
+                         </div>
+                         <div class="sp_blog_content">
+                             <ul class="sp_blog_meta mb-2">
+                                 <li><i class="far fa-user-circle"></i> By admin </li>
+                                 <li><i class="far fa-clock"></i> 12 07, 2023 </li>
+                             </ul>
+                             <h4 class="sp_blog_title"><a href="blog/256/consectetur-ea-quod-et-possimus-quae-dolore-iste.html">Consectetur ea quod et ________ quae dolore iste </a>
+                             </h4>
+                             <a href="blog/256/consectetur-ea-quod-et-possimus-quae-dolore-iste.html" class="sp_blog_btn">
+                                 <span>Read more </span>
+                                 <i class="las la-arrow-right"></i>
+                             </a>
+                         </div>
+                     </div>
+                 </div>
+                             <div class="col-lg-4 col-md-6">
+                     <div class="sp_blog_item">
+                         <div class="sp_blog_thumb">
+                             <img src="asset/frontend/light/images/blog/64ae8b1e9a7d91689160478.jpg" alt="blog thumb" />
+                         </div>
+                         <div class="sp_blog_content">
+                             <ul class="sp_blog_meta mb-2">
+                                 <li><i class="far fa-user-circle"></i> By admin </li>
+                                 <li><i class="far fa-clock"></i> 12 07, 2023 </li>
+                             </ul>
+                             <h4 class="sp_blog_title"><a href="blog/257/recusandae-modi-dolores-fugit-suscipit-officiis-earum.html">Recusandae modi dolores fugit ________ officiis earum </a>
+                             </h4>
+                             <a href="blog/257/recusandae-modi-dolores-fugit-suscipit-officiis-earum.html" class="sp_blog_btn">
+                                 <span>Read more </span>
+                                 <i class="las la-arrow-right"></i>
+                             </a>
+                         </div>
+                     </div>
+                 </div>
+            
+         </div>
+     </div>
+ </section>
+ <!-- blog section end -->
+                 </div>
+
+     <div class="sp_brand_wrapper">
+     <div class="container">
+         <div class="row">
+             <div class="col-lg-12">
+                 <div class="sp_brand_slider">
+                                             <div class="sp_brand_slide">
+                             <div class="sp_brand_item">
+                                 <img src="asset/frontend/light/images/brand/64afbd8e8a0ae1689238926.png" alt="brand image" />
+                             </div>
+                         </div>
+                                             <div class="sp_brand_slide">
+                             <div class="sp_brand_item">
+                                 <img src="asset/frontend/light/images/brand/64afbd95334cc1689238933.png" alt="brand image" />
+                             </div>
+                         </div>
+                                             <div class="sp_brand_slide">
+                             <div class="sp_brand_item">
+                                 <img src="asset/frontend/light/images/brand/64afbd9dd16901689238941.png" alt="brand image" />
+                             </div>
+                         </div>
+                                             <div class="sp_brand_slide">
+                             <div class="sp_brand_item">
+                                 <img src="asset/frontend/light/images/brand/64afbda3c9a7c1689238947.png" alt="brand image" />
+                             </div>
+                         </div>
+                                             <div class="sp_brand_slide">
+                             <div class="sp_brand_item">
+                                 <img src="asset/frontend/light/images/brand/64afbda8b7a6f1689238952.png" alt="brand image" />
+                             </div>
+                         </div>
+                                             <div class="sp_brand_slide">
+                             <div class="sp_brand_item">
+                                 <img src="asset/frontend/light/images/brand/64afbdae2e3a11689238958.png" alt="brand image" />
+                             </div>
+                         </div>
+                    
+                 </div>
+             </div>
+         </div>
+     </div>
+ </div><!-- sp_brand_wrapper end -->
+
+ <!-- footer section start -->
+ <footer class="footer-section">
+     <div class="sp_footer_menu_area">
+         <div class="back-to-top">
+             <div class="back-to-top-inner">
+                 <a href="#"><i class="las la-arrow-up"></i></a>
+             </div>
+         </div>
+
+         <div class="container">
+             <div class="row gy-4 justify-content-between">
+                 <div class="col-lg-4 pe-xl-5">
+                     <div class="sp_footer_item">
+                         <a href="index.html" class="site-logo"><img src="asset/frontend/light/images/logo/logo light.png" alt="logo" /></a>
+                         <p class="mt-4">Lorem ipsum dolor sit ____ consectetur, adipisicing elit. fugiat ________ maxime nisi explicabo doloribus ______ similique, quia hic accusantium __________ odit voluptatibus molestiae enim ___ repellat. </p>
+                     </div>
+                 </div>
+                 <div class="col-lg-2 col-6">
+                     <div class="sp_footer_item">
+                         <h5 class="sp_footer_item_title">Company </h5>
+
+                         <ul class="sp_footer_menu">
+                                                             <li><a href="about.html">About </a></li>
+                                                             <li><a href="contact.html">Contact </a></li>
+                                                             <li><a href="packages.html">Packages </a></li>
+                                                             <li><a href="blog.html">Blog </a></li>
+                                                     </ul>
+                     </div>
+                 </div>
+                 <div class="col-lg-2 col-6">
+                     <div class="sp_footer_item">
+                         <h5 class="sp_footer_item_title">Links </h5>
+                         <ul class="sp_footer_menu">
+                            
+                         </ul>
+                     </div>
+                 </div>
+                 <div class="col-xl-3 col-lg-4">
+                     <div class="sp_footer_item">
+                         <h5 class="sp_footer_item_title">Newsletter </h5>
+                         <form class="sp_subscription_form" id="subscribe" method="POST">
+                             <input type="hidden" name="_token" value="AMRjZCF176dRw2xE21CsxRhrIkjqfvlBzA4bpV1z" />                             <input type="email" name="email" class="form-control subscribe-email" placeholder="Email Address" />
+                             <button type="submit" class="subs-btn"><i class="far fa-paper-plane"></i></button>
+                         </form>
+                         <h5 class="mt-4 text-white">Social links </h5>
+                         <ul class="sp_social_links mt-2">
+                                                             <li><a href="#"><i class="fab fa-facebook-f"></i></a>
+                                 </li>
+                                                             <li><a href="#"><i class="fab fa-twitter"></i></a>
+                                 </li>
+                                                             <li><a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                 </li>
+                                                             <li><a href="#"><i class="fab fa-pinterest-p"></i></a>
+                                 </li>
+                                                     </ul>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </div><!-- footer-top end -->
+     <div class="sp_copy_right_area">
+         <div class="container">
+             <div class="row">
+                 <div class="col-lg-12 text-center">
+                     <p>Copyright 2024 BixTraders . All Rights Reserved. </p>
+                 </div>
+             </div>
+         </div>
+     </div>
+ </footer>
+ <!-- footer section end -->
+
+     <script src="asset/frontend/light/js/lib/jquery.min.js"></script>
+     <script src="asset/frontend/light/js/lib/bootstrap.bundle.min.js"></script>
+     <script src="asset/frontend/light/js/lib/slick.min.js"></script>
+     <script src="asset/frontend/light/js/lib/wow.min.js"></script>
+     <script src="asset/frontend/light/js/lib/jquery.paroller.min.js"></script>
+     <script src="asset/frontend/light/js/lib/TweenMax.min.js"></script>
+     <script src="asset/frontend/light/js/lib/odometer.min.js"></script>
+     <script src="asset/frontend/light/js/lib/viewport.jquery.js"></script>
+
+
+
+             <script src="asset/frontend/light/js/izitoast.min.js"></script>
+    
+     <script src="asset/frontend/light/js/main.js"></script>
+
+         <script>
+        $(function(){
+            'use strict'
+
+            $('.decline-cookie__consent').on('click', function(){
+              $('.js-cookie-consent').remove()  
+            })
+        })
+    </script>
+
+
+    
+     <script>
+        $(function() {
+            'use strict'
+
+            $(document).on('submit', '#subscribe', function(e) {
+                e.preventDefault();
+                const email = $('.subscribe-email').val();
+                var url = "https://BixTraders.com/subscribe";
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: {
+                        email: email,
+                        _token: "AMRjZCF176dRw2xE21CsxRhrIkjqfvlBzA4bpV1z"
+                    },
+                    success: (response) => {
+
+                        $('.subscribe-email').val('');
+
+                        if (response.success) {
+
+            iziToast.success({
+            position: 'topRight',
+            message: "Successfully Subscribe",
+        });
+    
+    return
+}
+
+
+    iziToast.error({
+        position: 'topRight',
+        message: "",
+    });
+
+                    },
+                    error: () => {
+
+                                                    iziToast.error({
+                                position: 'topRight',
+                                message: "Email is Required",
+                            });
+                                            }
+                })
+
+            });
+
+            var url = "index.html";
+
+            $(".changeLang").on('change', function() {
+               
+                if ($(this).val() == '') {
+                    return false;
+                }
+                window.location.href = url + "?lang=" + $(this).val();
+            });
+
+        })
+    </script>
+
+
+     <script>
+    'use strict'
+
+    
+
+    
+
+    </script>
+
+
+ </body>
+
+ </html>
+ 

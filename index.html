@@ -1,0 +1,1644 @@
+<!DOCTYPE html>
+ <html lang="en">
+
+ <head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+     <meta charset="UTF-8" />
+
+     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+     <meta name="description" content="Simple stock &amp; cryptocurrency price forecasting console application, using PHP Machine" />
+     <meta name="keywords" content="bix,btc,froex,Binance,Crypto,Buy,Sell " />
+
+     <title>BixTraders </title>
+
+     <link rel="stylesheet" href="../../fonts.googleapis.com/css2_1271972d.css" />
+     <link rel="stylesheet" href="../../fonts.googleapis.com/css2_6fa2d7dc.css" />
+
+     <link rel="shortcut icon" type="image/png" href="asset/images/icon/icon.png" />
+
+     <link rel="stylesheet" href="asset/frontend/light/css/lib/bootstrap.min.css" />
+     <link rel="stylesheet" href="asset/frontend/light/css/all.min.css" />
+     <link rel="stylesheet" href="asset/frontend/light/css/line-awesome.min.css" />
+     <link rel="stylesheet" href="asset/frontend/light/css/lib/slick.css" />
+     <link rel="stylesheet" href="asset/frontend/light/css/lib/odometer.css" />
+
+             <link rel="stylesheet" href="asset/frontend/light/css/izitoast.min.css" />
+    
+     <link href="asset/frontend/light/css/main.css" rel="stylesheet" />
+
+    
+     <style>
+        :root {
+            --h-font: 'Montserrat', sans-serif;
+            --p-font: 'Poppins','sans-serif';
+        }
+    </style>
+
+         <style>
+        .wrapper {
+            display: inline-flex;
+
+            height: 100px;
+            width: 100%;
+            align-items: center;
+            justify-content: space-evenly;
+            border-radius: 5px;
+            padding: 20px 15px;
+            box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .wrapper .option {
+            background: #fff;
+            height: 55px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            margin: 0 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            padding: 0 10px;
+            border: 2px solid lightgrey;
+            transition: all 0.3s ease;
+        }
+
+        .wrapper .option .dot {
+            height: 20px;
+            width: 20px;
+            background: #d9d9d9;
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .wrapper .option .dot::before {
+            position: absolute;
+            content: "";
+            top: 4px;
+            left: 4px;
+            width: 12px;
+            height: 12px;
+            background: var(--clr-main);
+            border-radius: 50%;
+            opacity: 0;
+            transform: scale(1.5);
+            transition: all 0.3s ease;
+        }
+
+        input[type="radio"] {
+            display: none;
+        }
+
+        #option-1:checked:checked~.option-1,
+        #option-2:checked:checked~.option-2 {
+            border-color: var(--clr-main);
+            background: var(--clr-main);
+        }
+
+        #option-1:checked:checked~.option-1 .dot,
+        #option-2:checked:checked~.option-2 .dot {
+            background: #fff;
+        }
+
+        #option-1:checked:checked~.option-1 .dot::before,
+        #option-2:checked:checked~.option-2 .dot::before {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .wrapper .option span {
+            font-size: 20px;
+            color: #808080;
+        }
+
+        #option-1:checked:checked~.option-1 span,
+        #option-2:checked:checked~.option-2 span {
+            color: #fff;
+        }
+    </style>
+
+       <style>
+      #linechart .apexcharts-tooltip {
+        background-color: #220700 !important;
+        border: 1px solid rgba(255, 255, 255, 0.15)
+      }
+
+      .sp_trading_section {
+        padding: 120px 0;
+      }
+
+      .radio_button_list {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        margin: -3px -15px;
+      }
+
+      .radio_button_list .sp_site_radio {
+        padding: 3px 15px;
+      }
+  </style>
+
+
+ </head>
+
+ <body>
+
+
+             <div class="preloader-holder">
+             <div class="preloader">
+                 <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+             </div>
+         </div>
+    
+
+             <script async="" src="../../www.googletagmanager.com/gtag/js_91fd800.js"></script>
+         <script>
+            'use strict'
+            window.dataLayer = window.dataLayer || [];
+
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag("js", new Date());
+            gtag("config", "hjkhjk");
+        </script>
+    
+             <div class="cookies-card style-full js-cookie-consent cookie-consent">
+     <div class="container">
+         <div class="cookies-card-inner bg--default radius--10px">
+             <div class="d-flex flex-wrap align-items-center">
+                 <div class="cookies-card__icon mb-4">
+                     <i class="fas fa-cookie-bite text-dark"></i>
+                 </div>
+                 <p class="cookies-card__content cookie-consent__message text-white mb-4">By clicking “accept all _______”, you agree stack exchange ___ store cookies on your ______ and disclose information in __________ with our cookie policy. </p>
+                 <div class="cookies-card__btn">
+                     <a href="javascript:void(0)" class="cookies-btn js-cookie-consent-agree cookie-consent__agree">Accept </a>
+                     <a href="javascript:void(0)" class="cookies-btn decline-cookie__consent">Decline </a>
+                 </div>
+             </div>
+         </div>
+     </div>
+ </div>
+
+
+
+     <script>
+
+        'use strict'
+
+        window.laravelCookieConsent = (function () {
+
+            const COOKIE_VALUE = 1;
+            const COOKIE_DOMAIN = 'BixTraders.com';
+
+            function consentWithCookies() {
+                setCookie('laravel_cookie_consent', COOKIE_VALUE, 7300);
+                hideCookieDialog();
+            }
+
+            function cookieExists(name) {
+                return (document.cookie.split('; ').indexOf(name + '=' + COOKIE_VALUE) !== -1);
+            }
+
+            function hideCookieDialog() {
+                const dialogs = document.getElementsByClassName('js-cookie-consent');
+
+                for (let i = 0; i < dialogs.length; ++i) {
+                    dialogs[i].style.display = 'none';
+                }
+            }
+
+            function setCookie(name, value, expirationInDays) {
+                const date = new Date();
+                date.setTime(date.getTime() + (expirationInDays * 24 * 60 * 60 * 1000));
+                document.cookie = name + '=' + value
+                    + ';expires=' + date.toUTCString()
+                    + ';domain=' + COOKIE_DOMAIN
+                    + ';path=/'
+                    + ';samesite=lax';
+            }
+
+            if (cookieExists('laravel_cookie_consent')) {
+                hideCookieDialog();
+            }
+
+            const buttons = document.getElementsByClassName('js-cookie-consent-agree');
+
+            for (let i = 0; i < buttons.length; ++i) {
+                buttons[i].addEventListener('click', consentWithCookies);
+            }
+
+            return {
+                consentWithCookies: consentWithCookies,
+                hideCookieDialog: hideCookieDialog
+            };
+        })();
+    </script>
+
+    
+     <div class="body-content-area">
+                     <!-- banner section start -->
+ <section class="sp_banner" style="background-image: url('asset/frontend/light/images/banner/64abafeb996ca1688973291.jpg');">
+
+     <div class="sp_banner_el">
+         <img src="asset/frontend/light/images/banner/64abd46b2a05a1688982635.png" alt="banner image" />
+     </div>
+
+     <div class="container">
+         <div class="row gy-5 justify-content-lg-between justify-content-center align-items-center">
+             <div class="col-lg-7 text-lg-start text-center">
+                 <h2 class="sp_banner_title wow fadeInUp" data-wow-duration="0.3s" data-wow-delay="0.3s">
+                Discover The World with <span> BixTraders </span>                 </h2>
+
+                 <p class="sp_banner_description">The world's financial markets are at your fingertips. Unleash your trading potential with our user-friendly forex platform. Whether you're a seasoned investor or just starting your journey, we empower you to navigate the global currency market with confidence. Access powerful trading tools, competitive rates, and exceptional support every step of the way. Take control of your financial future and explore the exciting world of forex trading. Partner with us and unlock the limitless possibilities of the global market. </p>
+                
+                 <div class="mt-sm-5 mt-4 wow fadeInUp" data-wow-duration="0.3s" data-wow-delay="0.7s">
+                     <a href="#" class="btn sp_theme_btn me-3 mb-2"><i class="fas fa-rocket me-2"></i> Get started </a>
+
+                     <a href="register.html" class="btn sp_light_border_btn mb-2">Register now  <i class="las la-arrow-right ms-2 rotate-arrow"></i></a>
+                 </div>
+             </div>
+             <div class="col-lg-5 col-md-6 col-sm-7">
+                 <div class="sp_banner_thumb wow fadeInUp" data-wow-duration="0.5s" data-wow-delay="0.9s">
+                     <img src="asset/frontend/light/images/banner/64abdca21d89a1688984738.png" alt="banner image" />
+                 </div>
+             </div>
+         </div>
+     </div>
+ </section>
+ <!-- banner section end -->        
+         <header class="sp_header">
+     <div class="sp_header_info_bar">
+         <div class="container">
+             <div class="row align-items-center">
+                 <div class="col-lg-10 header-top-left">
+                     <div class="tradingview-widget-container">
+                         <div class="tradingview-widget-container__widget"></div>
+                         <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/markets/" rel="noopener" target="_blank"><span class="blue-text">Markets today </span></a> by TradingView </div>
+                         <script type="text/javascript" src="../../s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async="">
+                            {
+                                "symbols": [{
+                                        "proName": "FOREXCOM:SPXUSD",
+                                        "title": "S&P 500"
+                                    },
+                                    {
+                                        "proName": "FOREXCOM:NSXUSD",
+                                        "title": "US 100"
+                                    },
+                                    {
+                                        "proName": "FX_IDC:EURUSD",
+                                        "title": "EUR/USD"
+                                    },
+                                    {
+                                        "proName": "BITSTAMP:BTCUSD",
+                                        "title": "Bitcoin"
+                                    },
+                                    {
+                                        "proName": "BITSTAMP:ETHUSD",
+                                        "title": "Ethereum"
+                                    }
+                                ],
+                                "showSymbolLogo": true,
+                                "colorTheme": "dark",
+                                "isTransparent": true,
+                                "displayMode": "adaptive",
+                                "locale": "en"
+                            }
+                        </script>
+                     </div>
+                     <!-- TradingView Widget END -->
+                 </div>
+
+                 <div class="col-lg-2 header-top-right">
+                     <div class="d-flex justify-content-end">
+                         <select class="custom-select-form selectric ms-3 rounded changeLang nav-link scrollto" aria-label="Default select example">
+                                                             <option value="sp" />
+                                    Spanish
+                                 
+                                                             <option value="en" selected="" />
+                                    English
+                                 
+                                                     </select>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </div><!-- header-top end -->
+
+     <div class="sp_header_main">
+         <div class="container">
+             <nav class="navbar navbar-expand-xl p-0 align-items-center">
+                 <a class="site-logo site-title" href="index.html">
+                     <img src="asset/frontend/light/images/logo/logo light.png" alt="logo" />
+                 </a>
+                 <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                     <span class="menu-toggle"></span>
+                 </button>
+                 <div class="collapse navbar-collapse mt-lg-0 mt-3" id="mainNavbar">
+                     <ul class="nav navbar-nav sp_site_menu ms-auto">
+                         <li class='nav-item'>
+         <a class='nav-link' href='index.html'>Home </a>
+     </li>
+                 <li class='nav-item'>
+                                 <a class='nav-link' href='about.html'>About </a>
+                             </li>
+                
+                 <li class='nav-item'>
+                                 <a class='nav-link' href='packages.html'>Packages </a>
+                             </li>
+                
+                 <li class='nav-item'>
+                                 <a class='nav-link' href='contact.html'>Contact </a>
+                             </li>
+                  <li class='nav-item dropdown'>
+                         <a class='nav-link dropdown-toggle' href='#' id='navbarDropdown' role='button' data-bs-toggle='dropdown' aria-expanded='false'>
+                            Pages
+                         </a>
+                         <ul class='dropdown-menu' aria-labelledby='navbarDropdown'>
+                             <li><a class='dropdown-item' href='blog.html'>Blog </a></li>
+                         </ul>
+                 </li>                     </ul>
+
+                     <select class="custom-select-form  rounded changeLang nav-link mb-3 d-xl-none">
+                                                     <option value="sp" />
+                                Spanish
+                             
+                                                     <option value="en" selected="" />
+                                English
+                             
+                                             </select>
+
+                     <div class="navbar-action">
+                                                     <a href="login.html" class="me-3 text-p">Sign in </a>
+                             <a href="register.html" class="btn sp_theme_btn btn-sm">Sign up  <i class="las la-long-arrow-alt-right ms-2"></i></a>
+                        
+                     </div>
+                 </div>
+             </nav>
+         </div>
+     </div><!-- header-bottom end -->
+ </header>
+ <!-- header-section end  -->
+
+        
+                    <section class="overview-section sp_separator_bg sp_pt_120 sp_pb_120">
+     <div class="overview-el">
+         <img src="asset/frontend/light/images/overview/64ae74ff11fa31689154815.png" alt="image" />
+
+         <div class="map-dot dot-1"></div>
+         <div class="map-dot dot-2"></div>
+         <div class="map-dot dot-3"></div>
+         <div class="map-dot dot-4"></div>
+         <div class="map-dot dot-5"></div>
+         <div class="map-dot dot-6"></div>
+         <div class="map-dot dot-7"></div>
+         <div class="map-dot dot-8"></div>
+         <div class="map-dot dot-9"></div>
+         <div class="map-dot dot-10"></div>
+     </div>
+     <div class="container">
+         <div class="row">
+             <div class="col-lg-6">
+                 <h2 class="sp_theme_top_title">Join our Trading  <span>platform today. </span></h2>
+                 <p class="mb-lg-5 mb-4 mt-3">Discover the power of financial freedom with our cutting-edge forex trading platform! Join us today and unlock unlimited potential in the world's largest financial market. With expert analysis, real-time data, and intuitive tools at your fingertips, success is just a click away. Don't miss out – embark on your journey to financial success with us now </p>
+                 <div class="sp_overview_wrapper">
+                     <div class="row gy-4">
+                                                     <div class="col-xl-3 col-6">
+                                 <div class="sp_overview_item">
+                                     <div class="sp_overview_content">
+                                         <div class="d-flex flex-wrap align-items-center">
+                                             <h4 class="sp_overview_amount odometer me-1" data-odometer-final="25">
+                                             </h4>
+                                             <h4 class="sp_overview_amount">
+                                                M </h4>
+                                         </div>
+                                         <p class="sp_overview_caption">Total signal </p> 
+                                     </div>
+                                 </div>
+                             </div>
+                                                     <div class="col-xl-3 col-6">
+                                 <div class="sp_overview_item">
+                                     <div class="sp_overview_content">
+                                         <div class="d-flex flex-wrap align-items-center">
+                                             <h4 class="sp_overview_amount odometer me-1" data-odometer-final="235">
+                                             </h4>
+                                             <h4 class="sp_overview_amount">
+                                                M </h4>
+                                         </div>
+                                         <p class="sp_overview_caption">Total users </p> 
+                                     </div>
+                                 </div>
+                             </div>
+                                                     <div class="col-xl-3 col-6">
+                                 <div class="sp_overview_item">
+                                     <div class="sp_overview_content">
+                                         <div class="d-flex flex-wrap align-items-center">
+                                             <h4 class="sp_overview_amount odometer me-1" data-odometer-final="45">
+                                             </h4>
+                                             <h4 class="sp_overview_amount">
+                                                M </h4>
+                                         </div>
+                                         <p class="sp_overview_caption">Success rate </p> 
+                                     </div>
+                                 </div>
+                             </div>
+                                                     <div class="col-xl-3 col-6">
+                                 <div class="sp_overview_item">
+                                     <div class="sp_overview_content">
+                                         <div class="d-flex flex-wrap align-items-center">
+                                             <h4 class="sp_overview_amount odometer me-1" data-odometer-final="12">
+                                             </h4>
+                                             <h4 class="sp_overview_amount">
+                                                 </h4>
+                                         </div>
+                                         <p class="sp_overview_caption">Total award </p> 
+                                     </div>
+                                 </div>
+                             </div>
+                                             </div>
+                 </div>
+             </div>
+         </div>
+     </div>
+ </section>
+ <!-- overview section end -->            <section class="choose-section sp_pt_120 sp_pb_120">
+     <div class="container">
+         <div class="row justify-content-center">
+             <div class="col-lg-8 text-center">
+                 <div class="sp_theme_top  wow fadeInUp" data-wow-duration="0.3s" data-wow-delay="0.3s">
+                     <div class="sp_theme_top_caption"><i class="fas fa-bolt"></i> Choose us </div>
+                     <h2 class="sp_theme_top_title">Why Choose  <span>BixTraders</span></h2>
+                 </div>
+             </div>
+         </div>
+         <div class="row g-xl-5 gy-4 items-wrapper">
+                             <div class="col-xl-6 col-md-6 wow fadeInUp" data-wow-duration="0.3s">
+                     <div class="sp_choose_item">
+                         <div class="sp_choose_icon">
+                             <img src="asset/frontend/light/images/why_choose_us/64ae64c1a52761689150657.png" alt="image" />
+                         </div>
+                         <div class="sp_choose_content">
+                             <h4 class="title">Meta trader </h4>
+                             <p class="mt-2">Access the industry-standard MetaTrader platform, renowned for its user-friendly interface, advanced charting tools, and automated trading capabilities. Execute trades efficiently and analyze market trends with precision, all within a familiar and trusted environment. </p>
+                         </div>
+                     </div><!-- choose-item end -->
+                 </div>
+                             <div class="col-xl-6 col-md-6 wow fadeInUp" data-wow-duration="0.3s">
+                     <div class="sp_choose_item">
+                         <div class="sp_choose_icon">
+                             <img src="asset/frontend/light/images/why_choose_us/64ae64c8b4e9c1689150664.png" alt="image" />
+                         </div>
+                         <div class="sp_choose_content">
+                             <h4 class="title">Competetive pricing </h4>
+                             <p class="mt-2">We believe in making forex trading accessible to all. That's why we offer competitive spreads and commissions, ensuring you keep more of your profits. Trade with confidence, knowing you're getting exceptional value for your money. </p>
+                         </div>
+                     </div><!-- choose-item end -->
+                 </div>
+                             <div class="col-xl-6 col-md-6 wow fadeInUp" data-wow-duration="0.3s">
+                     <div class="sp_choose_item">
+                         <div class="sp_choose_icon">
+                             <img src="asset/frontend/light/images/why_choose_us/64ae64cfdfb8f1689150671.png" alt="image" />
+                         </div>
+                         <div class="sp_choose_content">
+                             <h4 class="title">Active trader </h4>
+                             <p class="mt-2">Our dedicated team of experienced account managers is here to support you every step of the way. Whether you need assistance navigating the platform, market insights, or strategic guidance, Bix Traders has your back. We provide the resources and support active traders need to thrive in the forex market. </p>
+                         </div>
+                     </div><!-- choose-item end -->
+                 </div>
+                             <div class="col-xl-6 col-md-6 wow fadeInUp" data-wow-duration="0.3s">
+                     <div class="sp_choose_item">
+                         <div class="sp_choose_icon">
+                             <img src="asset/frontend/light/images/why_choose_us/64ae64d7006ff1689150679.png" alt="image" />
+                         </div>
+                         <div class="sp_choose_content">
+                             <h4 class="title">Meta trader </h4>
+                             <p class="mt-2">Access the industry-standard MetaTrader platform, renowned for its user-friendly interface, advanced charting tools, and automated trading capabilities. Execute trades efficiently and analyze market trends with precision, all within a familiar and trusted environment.</p>
+                         </div>
+                     </div><!-- choose-item end -->
+                 </div>
+                             <div class="col-xl-6 col-md-6 wow fadeInUp" data-wow-duration="0.3s">
+                     <div class="sp_choose_item">
+                         <div class="sp_choose_icon">
+                             <img src="asset/frontend/light/images/why_choose_us/64ae64dd785041689150685.png" alt="image" />
+                         </div>
+                         <div class="sp_choose_content">
+                             <h4 class="title">Competetive pricing </h4>
+                             <p class="mt-2">We believe in making forex trading accessible to all. That's why we offer competitive spreads and commissions, ensuring you keep more of your profits. Trade with confidence, knowing you're getting exceptional value for your money. </p>
+                         </div>
+                     </div><!-- choose-item end -->
+                 </div>
+                             <div class="col-xl-6 col-md-6 wow fadeInUp" data-wow-duration="0.3s">
+                     <div class="sp_choose_item">
+                         <div class="sp_choose_icon">
+                             <img src="asset/frontend/light/images/why_choose_us/64ae64e37ab7f1689150691.png" alt="image" />
+                         </div>
+                         <div class="sp_choose_content">
+                             <h4 class="title">Active trader </h4>
+                             <p class="mt-2">Our dedicated team of experienced account managers is here to support you every step of the way. Whether you need assistance navigating the platform, market insights, or strategic guidance, Bix Traders has your back. We provide the resources and support active traders need to thrive in the forex market.</p>
+                         </div>
+                     </div><!-- choose-item end -->
+                 </div>
+                     </div>
+     </div>
+ </section>            <!-- plan section start -->
+ <section class="plan-section sp_pt_120 sp_pb_120" style="background-image: url('asset/frontend/light/images/plans/64acfd4e457f21689058638.jpg');">
+     <div class="container">
+         <div class="row justify-content-center">
+             <div class="col-lg-7 text-center">
+                 <div class="sp_theme_top  wow fadeInUp" data-wow-duration="0.3s" data-wow-delay="0.3s">
+                     <div class="sp_theme_top_caption"><i class="fas fa-bolt"></i> Our best packages </div>
+                     <h2 class="sp_theme_top_title">Our Best  <span>Packages </span></h2>
+                 </div>
+             </div>
+         </div>
+
+         <div class="row gy-4 items-wrapper justify-content-center">
+                             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-duration="0.3s">
+                     <div class="sp_pricing_item">
+                         <div class="pricing-header">
+                             <div class="left">
+                                 <div class="icon">
+                                     <i class="far fa-gem"></i>
+                                 </div>
+                                 <div class="content">
+                                     <h6 class="package-name">Plan six </h6>
+                                     <p>Duration
+                                         <span>75 days </span></p>
+                                 </div>
+                             </div>
+                             <div class="right">
+                                 <h4 class="package-price">10 USD 
+                             </h4></div>
+                         </div>
+                         <div class="pricing-body">
+                             <ul class="package-features">
+                                                                                                             <li>Great features </li>
+                                                                             <li>Live api </li>
+                                                                             <li>Crypto </li>
+                                                                             <li>Great features </li>
+                                                                                                 </ul>
+                         </div>
+                                                     <a href="index.html" data-id="6" class="btn sp_theme_btn w-100 chooseBtn"><i class="las la-arrow-right me-2"></i> Choose plan
+                             </a>
+                                             </div>
+                 </div>
+                             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-duration="0.3s">
+                     <div class="sp_pricing_item">
+                         <div class="pricing-header">
+                             <div class="left">
+                                 <div class="icon">
+                                     <i class="far fa-gem"></i>
+                                 </div>
+                                 <div class="content">
+                                     <h6 class="package-name">Plan five </h6>
+                                     <p>Duration
+                                         <span>45 days </span></p>
+                                 </div>
+                             </div>
+                             <div class="right">
+                                 <h4 class="package-price">100 USD 
+                             </h4></div>
+                         </div>
+                         <div class="pricing-body">
+                             <ul class="package-features">
+                                                                                                             <li>Live api </li>
+                                                                             <li>Great features </li>
+                                                                             <li>Great features </li>
+                                                                             <li>Crypto </li>
+                                                                                                 </ul>
+                         </div>
+                                                     <a href="index.html" data-id="5" class="btn sp_theme_btn w-100 chooseBtn"><i class="las la-arrow-right me-2"></i> Choose plan
+                             </a>
+                                             </div>
+                 </div>
+                             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-duration="0.3s">
+                     <div class="sp_pricing_item">
+                         <div class="pricing-header">
+                             <div class="left">
+                                 <div class="icon">
+                                     <i class="far fa-gem"></i>
+                                 </div>
+                                 <div class="content">
+                                     <h6 class="package-name">Plan four </h6>
+                                     <p>Duration
+                                         <span>unlimited days </span></p>
+                                 </div>
+                             </div>
+                             <div class="right">
+                                 <h4 class="package-price">1000 USD 
+                             </h4></div>
+                         </div>
+                         <div class="pricing-body">
+                             <ul class="package-features">
+                                                                                                             <li>Great features </li>
+                                                                             <li>Crypto </li>
+                                                                             <li>Live api </li>
+                                                                             <li>Great features </li>
+                                                                                                 </ul>
+                         </div>
+                                                     <a href="index.html" data-id="4" class="btn sp_theme_btn w-100 chooseBtn"><i class="las la-arrow-right me-2"></i> Choose plan
+                             </a>
+                                             </div>
+                 </div>
+                             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-duration="0.3s">
+                     <div class="sp_pricing_item">
+                         <div class="pricing-header">
+                             <div class="left">
+                                 <div class="icon">
+                                     <i class="far fa-gem"></i>
+                                 </div>
+                                 <div class="content">
+                                     <h6 class="package-name">Lifetime signal </h6>
+                                     <p>Duration
+                                         <span>90 days </span></p>
+                                 </div>
+                             </div>
+                             <div class="right">
+                                 <h4 class="package-price">1500 USD 
+                             </h4></div>
+                         </div>
+                         <div class="pricing-body">
+                             <ul class="package-features">
+                                                                                                             <li>Great features </li>
+                                                                             <li>Binance trading </li>
+                                                                             <li>Crypto </li>
+                                                                             <li>Live api </li>
+                                                                                                 </ul>
+                         </div>
+                                                     <a href="index.html" data-id="3" class="btn sp_theme_btn w-100 chooseBtn"><i class="las la-arrow-right me-2"></i> Choose plan
+                             </a>
+                                             </div>
+                 </div>
+                             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-duration="0.3s">
+                     <div class="sp_pricing_item">
+                         <div class="pricing-header">
+                             <div class="left">
+                                 <div class="icon">
+                                     <i class="far fa-gem"></i>
+                                 </div>
+                                 <div class="content">
+                                     <h6 class="package-name">Ultra </h6>
+                                     <p>Duration
+                                         <span>unlimited days </span></p>
+                                 </div>
+                             </div>
+                             <div class="right">
+                                 <h4 class="package-price">500.00000000 USD 
+                             </h4></div>
+                         </div>
+                         <div class="pricing-body">
+                             <ul class="package-features">
+                                                                                                             <li>Great features </li>
+                                                                             <li>Binance trading </li>
+                                                                             <li>Crypto </li>
+                                                                             <li>Live api </li>
+                                                                                                 </ul>
+                         </div>
+                                                     <a href="index.html" data-id="2" class="btn sp_theme_btn w-100 chooseBtn"><i class="las la-arrow-right me-2"></i> Choose plan
+                             </a>
+                                             </div>
+                 </div>
+                             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-duration="0.3s">
+                     <div class="sp_pricing_item">
+                         <div class="pricing-header">
+                             <div class="left">
+                                 <div class="icon">
+                                     <i class="far fa-gem"></i>
+                                 </div>
+                                 <div class="content">
+                                     <h6 class="package-name">Pro max </h6>
+                                     <p>Duration
+                                         <span>30 days </span></p>
+                                 </div>
+                             </div>
+                             <div class="right">
+                                 <h4 class="package-price">90.00000000 USD 
+                             </h4></div>
+                         </div>
+                         <div class="pricing-body">
+                             <ul class="package-features">
+                                                                                                             <li>Great features </li>
+                                                                             <li>Binance trading </li>
+                                                                             <li>Crypto </li>
+                                                                             <li>Live api </li>
+                                                                                                 </ul>
+                         </div>
+                                                     <a href="index.html" data-id="1" class="btn sp_theme_btn w-100 chooseBtn"><i class="las la-arrow-right me-2"></i> Choose plan
+                             </a>
+                                             </div>
+                 </div>
+                     </div>
+
+         <div class="text-center mt-5">
+             <a href="packages.html" class="btn sp_theme_btn">More plans </a>
+         </div>
+     </div>
+ </section>
+
+
+ <div class="modal fade" id="confirmation" tabindex="-1" role="dialog">
+     <div class="modal-dialog" role="document">
+         <form action="https://BixTraders.com/plans" method="post">
+             <input type="hidden" name="_token" value="AMRjZCF176dRw2xE21CsxRhrIkjqfvlBzA4bpV1z" />             <div class="modal-content">
+                 <div class="modal-header">
+                     <h5 class="modal-title">Confirmation </h5>
+                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                         <span aria-hidden="true">&times; </span>
+                     </button>
+                 </div>
+                 <div class="modal-body">
+                     <div class="wrapper">
+                         <input type="hidden" name="payment" value="" />
+                         <input type="radio" name="payment_type" id="option-1" checked="" value="balance" />
+                         <input type="radio" name="payment_type" id="option-2" value="wallet" />
+                         <label for="option-1" class="option option-1">
+                             <div class="dot"></div>
+                             <span>Using balance </span>
+                         </label>
+                         <label for="option-2" class="option option-2">
+                             <div class="dot"></div>
+                             <span>Using wallet </span>
+                         </label>
+                     </div>
+                 </div>
+
+                 <div class="modal-footer">
+                     <button class="btn sp_theme_btn" type="submit">Next </button>
+                     <button class="btn sp_btn_secondary" type="button" data-bs-dismiss="modal">Close </button>
+                 </div>
+
+             </div>
+         </form>
+     </div>
+ </div>
+
+
+
+
+            <section class="work-section sp_pt_120 sp_pb_120">
+     <div class="container">
+         <div class="row justify-content-center">
+             <div class="col-lg-7 text-center">
+                 <div class="sp_theme_top  wow fadeInUp" data-wow-duration="0.3s" data-wow-delay="0.3s">
+                     <div class="sp_theme_top_caption"><i class="fas fa-bolt"></i> How it works </div>
+                     <h2 class="sp_theme_top_title">Started Trading  <span>With BixTraders </span>
+                     </h2>
+                 </div>
+             </div>
+         </div>
+
+         <div class="row gy-5 justify-content-center">
+                             <div class="col-xl-4 col-md-6">
+                     <div class="sp_work_item">
+                         <div class="sp_work_number">
+                            1
+                         </div>
+                         <div class="sp_work_content">
+                             <img src="asset/frontend/light/images/how_works/64acf4f6e2fa71689056502.png" alt="image" />
+                             <h4 class="title">Open an account </h4>
+                             <p class="mt-2">Opening an account at Bix Traders is simple and fast. Visit our website and click the "Sign Up" button. Fill out the registration form with your basic information and choose your preferred account type. </p>
+                         </div>
+                     </div>
+                 </div>
+                             <div class="col-xl-4 col-md-6">
+                     <div class="sp_work_item">
+                         <div class="sp_work_number">
+                            2
+                         </div>
+                         <div class="sp_work_content">
+                             <img src="asset/frontend/light/images/how_works/64acf503a4e111689056515.png" alt="image" />
+                             <h4 class="title">Deposit amount </h4>
+                             <p class="mt-2">Once your account is verified, it's time to add funds! We offer a variety of secure deposit methods to suit your needs. Simply select your preferred payment option from the "Deposit" section of your account dashboard and follow the instructions. </p>
+                         </div>
+                     </div>
+                 </div>
+                             <div class="col-xl-4 col-md-6">
+                     <div class="sp_work_item">
+                         <div class="sp_work_number">
+                            3
+                         </div>
+                         <div class="sp_work_content">
+                             <img src="asset/frontend/light/images/how_works/64acf50d79cb11689056525.png" alt="image" />
+                             <h4 class="title">Start trading </h4>
+                             <p class="mt-2">Once you're comfortable with the platform and your chosen currency pair, you're ready to take your first trade! Remember, responsible trading involves research, risk management, and practice. Bix Traders provides educational resources and support to help you navigate the market effectively. </p>
+                         </div>
+                     </div>
+                 </div>
+                     </div>
+     </div>
+ </section>
+ <!-- how work section end -->            <section class="benefit-section sp_pt_120 sp_pb_120">
+     <div class="container">
+         <div class="row justify-content-center">
+             <div class="col-lg-8 text-center">
+                 <div class="sp_theme_top  wow fadeInUp" data-wow-duration="0.3s" data-wow-delay="0.3s">
+                     <div class="sp_theme_top_caption"><i class="fas fa-bolt"></i> Summary of benefits </div>
+                     <h2 class="sp_theme_top_title">
+                        Elevate Your Trading Experience with Bix Traders                    </h2>
+                 </div>
+             </div>
+         </div>
+         <div class="row gy-4 align-items-center">
+             <div class="col-xl-4 col-md-6 wow fadeInUp" data-wow-duration="0.5s" data-wow-delay="0.7s">
+                                     <div class="sp_benefit_item">
+                         <div class="sp_benefit_icon">
+                             <img src="asset/frontend/light/images/benefits/64ae84308548c1689158704.png" alt="image" />
+                         </div>
+                         <div class="sp_benefit_content">
+                             <h4 class="title">Top-Notch Technical Analysis Tools</h4>
+                             <p class="mt-2">Make informed decisions with access to advanced charting tools and technical indicators. Analyze market trends, identify trading opportunities, and develop a winning strategy. </p>
+                         </div>
+                     </div><!-- sp_benefit_item end -->
+                                     <div class="sp_benefit_item">
+                         <div class="sp_benefit_icon">
+                             <img src="asset/frontend/light/images/benefits/64ae8440c18d81689158720.png" alt="image" />
+                         </div>
+                         <div class="sp_benefit_content">
+                             <h4 class="title">High performance Platform </h4>
+                             <p class="mt-2">Experience seamless trading with our robust and reliable platform. Enjoy fast execution speeds, a user-friendly interface, and advanced functionalities designed for optimal trading performance. </p>
+                         </div>
+                     </div><!-- sp_benefit_item end -->
+                                     <div class="sp_benefit_item">
+                         <div class="sp_benefit_icon">
+                             <img src="asset/frontend/light/images/benefits/64ae84503450c1689158736.png" alt="image" />
+                         </div>
+                         <div class="sp_benefit_content">
+                             <h4 class="title">Full Expert Support at Your Fingertips </h4>
+                             <p class="mt-2">Gain access to a dedicated team of experienced account managers. Receive personalized assistance, trading insights, and strategic guidance tailored to your goals. </p>
+                         </div>
+                     </div><!-- sp_benefit_item end -->
+                             </div>
+             <div class="col-lg-4 d-xl-block d-none">
+                 <div class="sp_benefit_thumb paroller" data-paroller-factor="0.2" data-paroller-factor-xs="0.0" data-paroller-factor-sm="0.0" data-paroller-factor-md="0.0" data-paroller-factor-md="0.0" data-paroller-factor-lg="0.0" data-paroller-type="foreground" data-paroller-direction="vertical">
+                     <img src="asset/frontend/light/images/benefits/64ae7fdde00711689157597.png" alt="image" />
+                 </div>
+             </div>
+             <div class="col-xl-4 col-md-6 wow fadeInUp" data-wow-duration="0.5s" data-wow-delay="0.9s">
+                                     <div class="sp_benefit_item">
+                         <div class="sp_benefit_icon">
+                             <img src="asset/frontend/light/images/benefits/64ae845c76f401689158748.png" alt="image" />
+                         </div>
+                         <div class="sp_benefit_content">
+                             <h4 class="title">Direct Email and SMS Alerts </h4>
+                             <p class="mt-2">Never miss a crucial market move with timely notifications delivered directly to your inbox or phone. Stay informed of price fluctuations and react to opportunities instantly. </p>
+                         </div>
+                     </div><!-- sp_benefit_item end -->
+                                     <div class="sp_benefit_item">
+                         <div class="sp_benefit_icon">
+                             <img src="asset/frontend/light/images/benefits/64ae8468df0051689158760.png" alt="image" />
+                         </div>
+                         <div class="sp_benefit_content">
+                             <h4 class="title">Highly Recommended by Experienced Traders </h4>
+                             <p class="mt-2">Join a community of successful traders who trust Bix Traders for their forex needs. Benefit from positive user experiences and discover why Bix Traders is a leading choice in the market. </p>
+                         </div>
+                     </div><!-- sp_benefit_item end -->
+                                     <div class="sp_benefit_item">
+                         <div class="sp_benefit_icon">
+                             <img src="asset/frontend/light/images/benefits/64ae8476570781689158774.png" alt="image" />
+                         </div>
+                         <div class="sp_benefit_content">
+                             <h4 class="title">Join a growing community </h4>
+                             <p class="mt-2">Connect with fellow traders, share knowledge, and learn from each other's experiences. Bix Traders fosters a collaborative environment where you can continuously develop your trading skills </p>
+                         </div>
+                     </div><!-- sp_benefit_item end -->
+                
+             </div>
+         </div>
+     </div>
+ </section>
+ <!-- benefit section end -->
+            <section class="trade-section sp_pt_120 sp_pb_120 sp_separator_bg">
+     <div class="trading-el">
+         <img src="asset/frontend/light/images/trade/64ad23f80a7da1689068536.png" alt="image" />
+     </div>
+   <div class="container">
+     <div class="row justify-content-center">
+       <div class="col-lg-7 text-center">
+         <div class="sp_theme_top  wow fadeInUp" data-wow-duration="0.3s" data-wow-delay="0.3s">
+           <div class="sp_theme_top_caption"><i class="fas fa-bolt"></i> Live trading </div>
+           <h2 class="sp_theme_top_title">Join the  <span>BixTraders community </span></h2>
+         </div>
+       </div>
+     </div>
+
+     <div class="row">
+         <div class="col-lg-12">
+             <div class="sp_site_card">
+                 <div class="card-header d-flex flex-wrap justify-content-between">
+                 <div class="radio_button_list">
+                     <div class="sp_site_radio">
+                         <input type="radio" class="form-check-input currency" id="trad-1" name="currency" value="BTC" checked="" />
+                         <label class="form-check-label" for="trad-1">
+                            Btc
+                         </label>
+                     </div>
+
+                     <div class="sp_site_radio">
+                         <input type="radio" class="form-check-input currency" id="trad-2" name="currency" value="ETH" />
+                         <label class="form-check-label" for="trad-2">
+                            Eth
+                         </label>
+                     </div>
+
+                     <div class="sp_site_radio">
+                         <input type="radio" class="form-check-input currency" id="trad-3" name="currency" value="USDT" />
+                         <label class="form-check-label" for="trad-3">
+                            Usdt
+                         </label>
+                     </div>
+
+                     <div class="sp_site_radio">
+                         <input type="radio" class="form-check-input currency" id="trad-4" name="currency" value="BNB" />
+                         <label class="form-check-label" for="trad-4">
+                            Bnb
+                         </label>
+                     </div>
+
+                     <div class="sp_site_radio">
+                         <input type="radio" class="form-check-input currency" id="trad-5" name="currency" value="DOGE" />
+                         <label class="form-check-label" for="trad-5">
+                            Doge
+                         </label>
+                     </div>
+
+                     <div class="sp_site_radio">
+                         <input type="radio" class="form-check-input currency" id="trad-6" name="currency" value="LTC" />
+                         <label class="form-check-label" for="trad-6">
+                            Ltc
+                         </label>
+                     </div>
+
+                     <div class="sp_site_radio">
+                         <input type="radio" class="form-check-input currency" id="trad-7" name="currency" value="DASH" />
+                         <label class="form-check-label" for="trad-7">
+                            Dash
+                         </label>
+                     </div>
+
+                     <div class="sp_site_radio">
+                         <input type="radio" class="form-check-input currency" id="trad-8" name="currency" value="ETC" />
+                         <label class="form-check-label" for="trad-8">
+                            Etc
+                         </label>
+                     </div>
+
+                     <div class="sp_site_radio">
+                         <input type="radio" class="form-check-input currency" id="trad-9" name="currency" value="BCH" />
+                         <label class="form-check-label" for="trad-9">
+                            Bch
+                         </label>
+                     </div>
+                 </div>
+
+                 <div>
+                     <a href="login.html" class="btn sp_theme_btn order">Start trading </a>
+                 </div>
+                 </div>
+                 <div class="sp_card_body">
+                     <div id="linechart"></div>
+                 </div>
+             </div>
+         </div>
+     </div>
+   </div>
+ </section>
+
+
+
+
+            <section class="about-section sp_pt_120 sp_pb_120">
+     <div class="about-el"><img src="asset/frontend/light/images/about/64abe35a53fa01688986458.png" alt="about line image" />
+     </div>
+     <div class="container">
+         <div class="row gy-5 align-items-center justify-content-between">
+             <div class="col-lg-7 ps-lg-5 wow fadeInUp" data-wow-duration="0.5s" data-wow-delay="0.5s">
+                 <h2 class="sp_theme_top_title">
+                    Join the  <span>BixTraders community </span>                 </h2>
+                 <p class="fs-lg mt-3">The forex market can feel like a vast and solitary landscape. But at Bix Traders, you're not alone. We cultivate a vibrant and supportive community of traders, fostering a space for connection, collaboration, and shared success.</p>
+                 <ul class="sp_check_list mt-4">
+                                                                         <li>Expand your network, share experiences, and learn from diverse trading styles. </li>
+                                                     <li> Explore diverse strategies, market insights, and new tools shared by experienced members. </li>
+                                                     <li>Learn risk management, technical analysis, and develop a winning trading psychology. </li>
+                                                     <li> Benefit from real-world experiences, peer-to-peer learning, and motivation within the community. </li>
+                                                             </ul>
+                 <a href="about.html" class="btn sp_theme_btn mt-4">Learn more </a>
+             </div>
+            
+             <div class="col-lg-5">
+                 <div class="about-thumb">
+                     <img src="asset/frontend/light/images/about/64abed38b05fa1688988984.png" alt="image" />
+                 </div>
+             </div>
+         </div>
+     </div>
+ </section>            <section class="sp_pt_120 sp_pb_120">
+     <div class="container">
+         <div class="row gy-4">
+             <div class="col-xl-5 col-lg-5">
+                 <img src="asset/frontend/light/images/referral/64af8ef86fb1a1689227000.png" alt="image" />
+             </div>
+             <div class="col-xl-6 col-lg-7 ps-xl-5">
+                 <h2 class="sp_theme_top_title">Our Forex  <span>Trading Referral </span>  </h2>
+
+                 <p>Ready to share your forex trading expertise and earn rewards? The Bix Traders referral program allows you to benefit from your network while introducing friends and colleagues to the exciting world of forex trading. </p>
+
+                 <div class="row gy-4 mt-2">
+                                         <div class="col-lg-6 col-6">
+                         <div class="sp_referral_item">
+                             <h4 class="sp_referral_item_title">Level 1 
+                             <p>You will get referral _____5% </p>
+                         </h4></div>
+                     </div>
+                                         <div class="col-lg-6 col-6">
+                         <div class="sp_referral_item">
+                             <h4 class="sp_referral_item_title">Level 2 
+                             <p>You will get referral _____10% </p>
+                         </h4></div>
+                     </div>
+                                         <div class="col-lg-6 col-6">
+                         <div class="sp_referral_item">
+                             <h4 class="sp_referral_item_title">Level 3 
+                             <p>You will get referral _____15% </p>
+                         </h4></div>
+                     </div>
+                                         <div class="col-lg-6 col-6">
+                         <div class="sp_referral_item">
+                             <h4 class="sp_referral_item_title">Level 4 
+                             <p>You will get referral _____20% </p>
+                         </h4></div>
+                     </div>
+                                     </div>
+             </div>
+         </div>
+     </div>
+   <section class="testimonial-section sp_pt_120 sp_pb_120" style="background-image: url('asset/frontend/light/images/testimonial/64af9af18c6391689230065.jpg');">
+     <div class="container">
+         <div class="row justify-content-center">
+             <div class="col-lg-6 text-center">
+                 <div class="sp_theme_top  wow fadeInUp" data-wow-duration="0.3s" data-wow-delay="0.3s">
+                     <div class="sp_theme_top_caption"><i class="fas fa-bolt"></i> Testimonials </div>
+                     <h2 class="sp_theme_top_title">
+                    Our <span>Our Customers </span> Says </h2>
+                 </div>
+             </div>
+         </div>
+     </div>
+     <div class="sp_testimonial_area">
+         <div class="container">
+             <div class="row justify-content-center">
+                 <div class="col-xl-12">
+                     <div class="sp_testimonial_slider">
+                                                 <div class="sp_testimonial_slide">
+                             <div class="sp_testimonial_item">
+                                 <i class="las la-quote-right sp_testimonial_icon"></i>
+                                 <div class="sp_testimonial_top">
+                                     <div class="sp_testimonial_thumb">
+                                         <img src="asset/frontend/light/images/testimonial/64afa18cb77c11689231756.jpg" alt="image" />
+                                     </div>
+                                     <div class="sp_testimonial_top_content">
+                                         <h4 class="name me-3 text-white">Rachael Marrion </h4>
+                                         <span class="sp_site_color">BixTrader</span>
+                                     </div>
+                                 </div>
+                                 <p class="mt-3">
+                                    Bixtraders is a game-changer! Their interface is so smooth, analyzing the market is like taking a Sunday stroll. Plus, their educational resources are constantly upping my trading skills. I wouldn't trade platforms for anything!
+                                 </p>
+                             </div>
+                         </div>
+                                                 <div class="sp_testimonial_slide">
+                             <div class="sp_testimonial_item">
+                                 <i class="las la-quote-right sp_testimonial_icon"></i>
+                                 <div class="sp_testimonial_top">
+                                     <div class="sp_testimonial_thumb">
+                                         <img src="asset/frontend/light/images/testimonial/64afa1a088bae1689231776.jpg" alt="image" />
+                                     </div>
+                                     <div class="sp_testimonial_top_content">
+                                         <h4 class="name me-3 text-white">David Soya </h4>
+                                         <span class="sp_site_color">BixTrader </span>
+                                     </div>
+                                 </div>
+                                 <p class="mt-3">
+                                    Never thought I'd jump into active trading, but Bixtraders made it surprisingly easy. Their platform is intuitive, and those order types? Pure genius! Now I can execute my investment plans perfectly. Thanks, Bixtraders, for making me a more confident investor!
+                                 </p>
+                             </div>
+                         </div>
+                                                 <div class="sp_testimonial_slide">
+                             <div class="sp_testimonial_item">
+                                 <i class="las la-quote-right sp_testimonial_icon"></i>
+                                 <div class="sp_testimonial_top">
+                                     <div class="sp_testimonial_thumb">
+                                         <img src="asset/frontend/light/images/testimonial/64afa240924b01689231936.jpg" alt="image" />
+                                     </div>
+                                     <div class="sp_testimonial_top_content">
+                                         <h4 class="name me-3 text-white">Karl Wan </h4>
+                                         <span class="sp_site_color"> BixTrader Investor </span>
+                                     </div>
+                                 </div>
+                                 <p class="mt-3">
+                                    Forget all the other platforms! Bixtraders' customer service blows them out of the water. They're always there to answer my questions, no matter how small. This lets me focus on making smart trades, stress-free. Bixtraders is the way to go!
+                                 </p>
+                             </div>
+                         </div>
+                                                 <div class="sp_testimonial_slide">
+                             <div class="sp_testimonial_item">
+                                 <i class="las la-quote-right sp_testimonial_icon"></i>
+                                 <div class="sp_testimonial_top">
+                                     <div class="sp_testimonial_thumb">
+                                         <img src="asset/frontend/light/images/testimonial/64afa247d6e351689231943.jpg" alt="image" />
+                                     </div>
+                                     <div class="sp_testimonial_top_content">
+                                         <h4 class="name me-3 text-white">Ualal Jal </h4>
+                                         <span class="sp_site_color">Strategic Investor </span>
+                                     </div>
+                                 </div>
+                                 <p class="mt-3">
+                                    Bixtraders' competitive rates and diverse investment options allow me to maximize my returns. I can finally build a well-rounded portfolio that aligns with my financial goals.
+                                 </p>
+                             </div>
+                         </div>
+                                                 <div class="sp_testimonial_slide">
+                             <div class="sp_testimonial_item">
+                                 <i class="las la-quote-right sp_testimonial_icon"></i>
+                                 <div class="sp_testimonial_top">
+                                     <div class="sp_testimonial_thumb">
+                                         <img src="asset/frontend/light/images/testimonial/64afa24eb51111689231950.jpg" alt="image" />
+                                     </div>
+                                     <div class="sp_testimonial_top_content">
+                                         <h4 class="name me-3 text-white">Daniel Yala </h4>
+                                         <span class="sp_site_color">BixTrader</span>
+                                     </div>
+                                 </div>
+                                 <p class="mt-3">
+                                    "The thrill of executing a trade based on my analysis is unbeatable. Bixtraders' platform provides all the tools I need to identify opportunities and make lightning-fast decisions. It's the perfect platform for any serious Bixtrader."
+                                 </p>
+                             </div>
+                         </div>
+                                                 <div class="sp_testimonial_slide">
+                             <div class="sp_testimonial_item">
+                                 <i class="las la-quote-right sp_testimonial_icon"></i>
+                                 <div class="sp_testimonial_top">
+                                     <div class="sp_testimonial_thumb">
+                                         <img src="asset/frontend/light/images/testimonial/64afa255340ee1689231957.jpg" alt="image" />
+                                     </div>
+                                     <div class="sp_testimonial_top_content">
+                                         <h4 class="name me-3 text-white">Pawal Hala </h4>
+                                         <span class="sp_site_color">investor </span>
+                                     </div>
+                                 </div>
+                                 <p class="mt-3">
+                                    "Investing used to feel overwhelming, but Bixtraders' clear tools and insightful research reports make it manageable. Now I feel confident making informed decisions about my portfolio's future." - Lisa, a long-term investor.
+"Bixtraders' competitive rates and diverse investment options allow me to maximize my returns. I can finally build a well-rounded portfolio that aligns with my financial goals."
+                                 </p>
+                             </div>
+                         </div>
+                                             </div>
+                 </div>
+             </div>
+         </div>
+     </div>
+ </section>
+ <!-- testimonial section end
+            <section class="blog-section sp_pt_120 sp_pb_120 sp_separator_bg">
+     <div class="container">
+         <div class="row justify-content-center">
+             <div class="col-lg-7 text-center">
+                 <div class="sp_theme_top  wow fadeInUp" data-wow-duration="0.3s" data-wow-delay="0.3s">
+                     <div class="sp_theme_top_caption"><i class="fas fa-bolt"></i>
+                        ____ post
+                     </div>
+                     <h2 class="sp_theme_top_title">
+                        ___ Latest  <span>News </span>                     </h2>
+                 </div>
+             </div>
+         </div>
+
+        
+         <div class="row gy-4 justify-content-center">
+                             <div class="col-lg-4 col-md-6">
+                     <div class="sp_blog_item">
+                         <div class="sp_blog_thumb">
+                             <img src="asset/frontend/light/images/blog/64ae8ae0746d41689160416.jpg" alt="blog thumb" />
+                         </div>
+                         <div class="sp_blog_content">
+                             <ul class="sp_blog_meta mb-2">
+                                 <li><i class="far fa-user-circle"></i> By admin </li>
+                                 <li><i class="far fa-clock"></i> 12 07, 2023 </li>
+                             </ul>
+                             <h4 class="sp_blog_title"><a href="blog/255/temporibus-dignissimos-aperiam-accusamus-dolore.html">Bitcoin Bullishness </a>
+                             </h4>
+                             <a href="blog/255/temporibus-dignissimos-aperiam-accusamus-dolore.html" class="sp_blog_btn">
+                                 <span>Read more </span>
+                                 <i class="las la-arrow-right"></i>
+                             </a>
+                         </div>
+                     </div>
+                 </div>
+                             <div class="col-lg-4 col-md-6">
+                     <div class="sp_blog_item">
+                         <div class="sp_blog_thumb">
+                             <img src="asset/frontend/light/images/blog/64ae8b0a98bda1689160458.jpg" alt="blog thumb" />
+                         </div>
+                         <div class="sp_blog_content">
+                             <ul class="sp_blog_meta mb-2">
+                                 <li><i class="far fa-user-circle"></i> By admin </li>
+                                 <li><i class="far fa-clock"></i> 12 07, 2023 </li>
+                             </ul>
+                             <h4 class="sp_blog_title"><a href="blog/256/consectetur-ea-quod-et-possimus-quae-dolore-iste.html">Consectetur ea quod et ________ quae dolore iste </a>
+                             </h4>
+                             <a href="blog/256/consectetur-ea-quod-et-possimus-quae-dolore-iste.html" class="sp_blog_btn">
+                                 <span>Read more </span>
+                                 <i class="las la-arrow-right"></i>
+                             </a>
+                         </div>
+                     </div>
+                 </div>
+                             <div class="col-lg-4 col-md-6">
+                     <div class="sp_blog_item">
+                         <div class="sp_blog_thumb">
+                             <img src="asset/frontend/light/images/blog/64ae8b1e9a7d91689160478.jpg" alt="blog thumb" />
+                         </div>
+                         <div class="sp_blog_content">
+                             <ul class="sp_blog_meta mb-2">
+                                 <li><i class="far fa-user-circle"></i> By admin </li>
+                                 <li><i class="far fa-clock"></i> 12 07, 2023 </li>
+                             </ul>
+                             <h4 class="sp_blog_title"><a href="blog/257/recusandae-modi-dolores-fugit-suscipit-officiis-earum.html">Recusandae modi dolores fugit ________ officiis earum </a>
+                             </h4>
+                             <a href="blog/257/recusandae-modi-dolores-fugit-suscipit-officiis-earum.html" class="sp_blog_btn">
+                                 <span>Read more </span>
+                                 <i class="las la-arrow-right"></i>
+                             </a>
+                         </div>
+                     </div>
+                 </div>
+            
+         </div>
+     </div>
+ </section> -->
+ <!-- blog section end -->
+         </div>
+
+     <div class="sp_brand_wrapper">
+     <div class="container">
+         <div class="row">
+             <div class="col-lg-12">
+                 <div class="sp_brand_slider">
+                                             <div class="sp_brand_slide">
+                             <div class="sp_brand_item">
+                                 <img src="asset/frontend/light/images/brand/64afbd8e8a0ae1689238926.png" alt="brand image" />
+                             </div>
+                         </div>
+                                             <div class="sp_brand_slide">
+                             <div class="sp_brand_item">
+                                 <img src="asset/frontend/light/images/brand/64afbd95334cc1689238933.png" alt="brand image" />
+                             </div>
+                         </div>
+                                             <div class="sp_brand_slide">
+                             <div class="sp_brand_item">
+                                 <img src="asset/frontend/light/images/brand/64afbd9dd16901689238941.png" alt="brand image" />
+                             </div>
+                         </div>
+                                             <div class="sp_brand_slide">
+                             <div class="sp_brand_item">
+                                 <img src="asset/frontend/light/images/brand/64afbda3c9a7c1689238947.png" alt="brand image" />
+                             </div>
+                         </div>
+                                             <div class="sp_brand_slide">
+                             <div class="sp_brand_item">
+                                 <img src="asset/frontend/light/images/brand/64afbda8b7a6f1689238952.png" alt="brand image" />
+                             </div>
+                         </div>
+                                             <div class="sp_brand_slide">
+                             <div class="sp_brand_item">
+                                 <img src="asset/frontend/light/images/brand/64afbdae2e3a11689238958.png" alt="brand image" />
+                             </div>
+                         </div>
+                    
+                 </div>
+             </div>
+         </div>
+     </div>
+ </div><!-- sp_brand_wrapper end -->
+
+ <!-- footer section start -->
+ <footer class="footer-section">
+     <div class="sp_footer_menu_area">
+         <div class="back-to-top">
+             <div class="back-to-top-inner">
+                 <a href="#"><i class="las la-arrow-up"></i></a>
+             </div>
+         </div>
+
+         <div class="container">
+             <div class="row gy-4 justify-content-between">
+                 <div class="col-lg-4 pe-xl-5">
+                     <div class="sp_footer_item">
+                         <a href="index.html" class="site-logo"><img src="asset/frontend/light/images/logo/logo light.png" alt="logo" /></a>
+                         <p class="mt-4">Bixtraders empowers your financial future. Trade with confidence using our user-friendly platform, in-depth research, and exceptional support. Join a community of successful investors and Bixtraders. </p>
+                     </div>
+                 </div>
+                 <div class="col-lg-2 col-6">
+                     <div class="sp_footer_item">
+                         <h5 class="sp_footer_item_title">Company </h5>
+
+                         <ul class="sp_footer_menu">
+                                                             <li><a href="about.html">About </a></li>
+                                                             <li><a href="contact.html">Contact </a></li>
+                                                             <li><a href="packages.html">Packages </a></li>
+                                                             <li><a href="blog.html">Blog </a></li>
+                                                     </ul>
+                     </div>
+                 </div>
+                 <div class="col-lg-2 col-6">
+                     <div class="sp_footer_item">
+                         <h5 class="sp_footer_item_title">Links </h5>
+                         <ul class="sp_footer_menu">
+                            
+                         </ul>
+                     </div>
+                 </div>
+                 <div class="col-xl-3 col-lg-4">
+                     <div class="sp_footer_item">
+                         <h5 class="sp_footer_item_title">Newsletter </h5>
+                         <form class="sp_subscription_form" id="subscribe" method="POST">
+                             <input type="hidden" name="_token" value="AMRjZCF176dRw2xE21CsxRhrIkjqfvlBzA4bpV1z" />                             <input type="email" name="email" class="form-control subscribe-email" placeholder="Email Address" />
+                             <button type="submit" class="subs-btn"><i class="far fa-paper-plane"></i></button>
+                         </form>
+                         <h5 class="mt-4 text-white">Social links </h5>
+                         <ul class="sp_social_links mt-2">
+                                                             <li><a href="#"><i class="fab fa-facebook-f"></i></a>
+                                 </li>
+                                                             <li><a href="#"><i class="fab fa-twitter"></i></a>
+                                 </li>
+                                                             <li><a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                 </li>
+                                                             <li><a href="#"><i class="fab fa-pinterest-p"></i></a>
+                                 </li>
+                                                     </ul>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </div><!-- footer-top end -->
+     <div class="sp_copy_right_area">
+         <div class="container">
+             <div class="row">
+                 <div class="col-lg-12 text-center">
+                     <p>Copyright 2024 BixTraders . All Rights Reserved. </p>
+                 </div>
+             </div>
+         </div>
+     </div>
+ </footer>
+ <!-- footer section end -->
+
+     <script src="asset/frontend/light/js/lib/jquery.min.js"></script>
+     <script src="asset/frontend/light/js/lib/bootstrap.bundle.min.js"></script>
+     <script src="asset/frontend/light/js/lib/slick.min.js"></script>
+     <script src="asset/frontend/light/js/lib/wow.min.js"></script>
+     <script src="asset/frontend/light/js/lib/jquery.paroller.min.js"></script>
+     <script src="asset/frontend/light/js/lib/TweenMax.min.js"></script>
+     <script src="asset/frontend/light/js/lib/odometer.min.js"></script>
+     <script src="asset/frontend/light/js/lib/viewport.jquery.js"></script>
+
+
+
+             <script src="asset/frontend/light/js/izitoast.min.js"></script>
+    
+     <script src="asset/frontend/light/js/main.js"></script>
+
+         <script>
+        $(function() {
+            'use strict'
+
+            $('.balance').on('click', function(e) {
+                e.preventDefault();
+                const modal = $('#balance')
+                modal.find('input[name = payment]').val($(this).data('id'))
+                modal.modal('show')
+            })
+
+            $('.chooseBtn').on('click', function(e) {
+                e.preventDefault();
+                const modal = $('#confirmation')
+
+                modal.find('input[name=payment]').val($(this).data('id'))
+
+                modal.modal('show')
+            })
+        })
+    </script>
+     <script src="asset/frontend/light/js/lib/apex.min.js"></script>
+     <script>
+        'use strict'
+
+
+        let cryptoPrice;
+
+        let currency = $("input[name='currency']:checked").val();
+
+        $('.currency').each(function(index) {
+            $('.currency').eq(index).on('click', function() {
+                currency = $(this).val();
+                fetchCryptocurrencyPrices(currency);
+                currentPrice(currency)
+            })
+        })
+
+        function currentPrice(currency) {
+
+            $.ajax({
+                url: "current-price",
+                method: "GET",
+                data: {
+                    currency: currency
+                },
+                success: function(response) {
+                    $('#currentPrice').text('Current Price ' + response + '(' + currency + ')')
+                    $('input[name=trade_cur]').val(currency)
+                    $('input[name=trade_price]').val(response)
+                }
+            });
+
+        }
+
+        function updateChart(data) {
+            chart.updateSeries([{
+                data: data
+            }]);
+        }
+
+        setInterval(() => {
+            fetchCryptocurrencyPrices(currency);
+            currentPrice(currency);
+        }, 5000);
+
+
+        $(window).on("load", function() {
+            fetchCryptocurrencyPrices(currency);
+            currentPrice(currency);
+        });
+
+
+        function fetchCryptocurrencyPrices(currency) {
+            $.ajax({
+                url: "https://BixTraders.com/get-ticker",
+                method: "GET",
+                data: {
+                    currency: currency
+                },
+                success: function(response) {
+                    chart.updateSeries([{
+                        data: response
+                    }]);
+
+                }
+            });
+        }
+
+        var options = {
+            series: [{
+                data: cryptoPrice
+            }],
+            chart: {
+                type: 'candlestick',
+                height: 400
+            },
+            title: {
+                text: 'CandleStick Chart',
+                align: 'left',
+                style: {
+                    color: '#ffffff'
+                }
+            },
+            xaxis: {
+                type: 'datetime',
+                labels: {
+                    style: {
+                        colors: ['#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff']
+                    }
+                }
+            },
+            yaxis: {
+                tooltip: {
+                    enabled: true
+                },
+                labels: {
+                    style: {
+                        colors: ['#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff']
+                    }
+                }
+            },
+            grid: {
+                show: true,
+                borderColor: '#ffffff26',
+                strokeDashArray: 0,
+                yaxis: {
+                    lines: {
+                        show: true
+                    }
+                }
+            }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#linechart"), options);
+        chart.render();
+
+
+        $('.order').on('click', function() {
+
+            const modal = $('#order');
+
+            modal.modal('show')
+        })
+    </script>
+     <script>
+        $(function(){
+            'use strict'
+
+            $('.decline-cookie__consent').on('click', function(){
+              $('.js-cookie-consent').remove()  
+            })
+        })
+    </script>
+
+
+    
+     <script>
+        $(function() {
+            'use strict'
+
+            $(document).on('submit', '#subscribe', function(e) {
+                e.preventDefault();
+                const email = $('.subscribe-email').val();
+                var url = "https://BixTrader.com/subscribe";
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: {
+                        email: email,
+                        _token: "AMRjZCF176dRw2xE21CsxRhrIkjqfvlBzA4bpV1z"
+                    },
+                    success: (response) => {
+
+                        $('.subscribe-email').val('');
+
+                        if (response.success) {
+
+            iziToast.success({
+            position: 'topRight',
+            message: "Successfully Subscribe",
+        });
+    
+    return
+}
+
+
+    iziToast.error({
+        position: 'topRight',
+        message: "",
+    });
+
+                    },
+                    error: () => {
+
+                                                    iziToast.error({
+                                position: 'topRight',
+                                message: "Email is Required",
+                            });
+                                            }
+                })
+
+            });
+
+            var url = "index.html";
+
+            $(".changeLang").on('change', function() {
+               
+                if ($(this).val() == '') {
+                    return false;
+                }
+                window.location.href = url + "?lang=" + $(this).val();
+            });
+
+        })
+    </script>
+
+
+     <script>
+    'use strict'
+
+    
+
+    
+
+    </script>
+
+
+ </body>
+
+ </html>
+ 

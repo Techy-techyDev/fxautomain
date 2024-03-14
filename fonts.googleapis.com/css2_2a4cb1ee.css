@@ -1,0 +1,14 @@
+@font-face {
+  font-family: 'Jost';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/l/font?kit=92zPtBhPNqw79Ij1E865zBUv7myjJQVH&skey=4145fd5d1d5ac665&v=v15);
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/l/font?kit=KFOmCnqEu92Fr1Me5A&skey=a0a0114a1dcab3ac&v=v30);
+}
